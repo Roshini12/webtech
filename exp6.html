@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="ap.js"></script>
+    <style>
+        div{
+            width:200px;
+            height:200px;
+            background-color: yellow;
+            border: 1px solid blue;
+            margin:auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">Hello World!</div>
+    <br>
+Background color:<input id="bgcolor" type="color" onchange="change()">
+<br><br>
+Text Color:<input id="fontcolor" type="color" onchange="change()">
+<br><br>
+Text size: 
+<select name="size" id="tsize" onchange="change()">
+  <option value="22">22</option>
+  <option value="23">23</option>
+  <option value="24">24</option>
+  <option value="25">25</option>
+</select>
+<br><br>
+Box width:<input type="text" id="width" onkeypress="change()"><br><br>
+Box height:<input type="text" id="height" onkeypress="change()"><br><br>
+Border Radius: <input type="range" id="radius"  onkeypress="change()">
+</body>
+</html>
+
+function change(){
+    var div=document.getElementById('box');
+    var bgcolor = document.getElementById('bgcolor').value;
+    div.style.backgroundColor=bgcolor;
+    var fcolor=document.getElementById('fontcolor').value;
+    div.style.color=fcolor;
+    var width=document.getElementById('width').value;
+    div.style.width=width+"px";
+    var height=document.getElementById('height').value;
+    div.style.height=height+"px";
+    var radius=document.getElementById('radius').value;
+    div.style.borderRadius=radius+"%";
+    var tsize=document.getElementById('tsize').value;
+        div.style.fontsize=tsize+"px";
+}
+var car=null;
+var timer=null;
+function init(){
+    car=document.getElementById('car');
+    car.style.position='relative';
+    car.style.left='2px';//intial position
+    document.getElementById("Dangerbox").innerHTML='';
+    
+}
+function move(){
+    car.style.left=parseInt(car.style.left)+100+"px";
+    timer=setTimeout(move,300);
+    if( parseInt(car.style.left) >= 650 )
+    {
+        stop();
+        document.getElementById("Dangerbox").innerHTML='<div id ="danger" style="border:1px solid red; background-color: red; color: white ; width: 150px; height: 50px;margin-left: 750px;" >DANGER</div>'
+    }
+
+}
+function stop(){
+    clearTimeout(timer);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="ap.js"></script>
+    <style>
+        #box{
+            width:30px;
+            height:400px;
+            background-color: blue;
+            margin-left: 800px;
+        }
+    </style>
+</head>
+<body onload="init()">
+    <div id="car" style="width:100px; height:80px; float: left;">
+<br><br><br><br>
+    <img src="car.jpg" alt="" width="100" height="80">
+    </div>
+    <div id="box"></div>
+    <br><div id="Dangerbox"></div><br>
+    <div style="text-align:center;">
+    <button onclick="move()">Start</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="init()">Reset</button>
+    <div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <h1 style="text-align:center;color:blue;">Telephone Directory</h1>
+    <script>
+        var items=[];
+        var numbers=[];
+        var index=0;
+        var flag=0;
+        function save(){
+            var data=document.getElementById('data').value;
+                        var no=document.getElementById('no').value;
+            for (var i=0;i<items.length;i++){
+                if(items[i]==data && numbers[i]==no){
+                    flag=1;
+                    index=i;
+                }
+            }
+            if (flag==1){
+                alertbox();
+            }
+            else{
+                items.push(data);
+                numbers.push(no);
+            }
+            view();
+        }
+        function view(){
+            var result="<ol>";
+                for(var i=0;i<items.length;i++){
+                    result+="<li>"+items[i]+" - "+numbers[i]+"</li>";
+                }
+            result+="</ol>"
+            document.getElementById('output').innerHTML=result;
+        }
+        function removeFront(){
+            items.shift();
+            numbers.shift();
+            view();
+        }
+        function removeLast(){
+            items.pop();
+            numbers.pop();
+            view();
+        }
+        function alertbox(){
+            alert("Contact already exist \r\n"+ items[index] +":" +numbers[index]);
+        }
+            </script>
+</head>
+<body style="color:blue;">
+    <div style="text-align:center;">
+    Name:<input type="text" id="data">&nbsp;&nbsp;&nbsp;&nbsp;Moblie Number:<input type="text" id="no"> 
+    <div><br><br>
+    <div style="text-align:center;">
+    <button style="background-color:blue;color: white ;padding: 15px 32px;margin: 4px 2px;" onclick="save()">Add Contact</button>
+    <button style="padding: 15px 32px;margin: 4px 2px;" onclick="removeFront()">Remove First</button>
+    <button style="padding: 15px 32px;margin: 4px 2px;" onclick="removeLast()">Remove Last</button>
+    <div><hr>
+    <div id="output" style="color: blue; font-size: 20px;text-align: center;"></div>
+    <hr>
+</body>
+</html>
